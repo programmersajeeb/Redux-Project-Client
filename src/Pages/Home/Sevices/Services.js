@@ -1,10 +1,11 @@
-import { Button, Container, Grid, Link, Typography } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
 import Service from '../Sevice/Service';
 import { fetchProducts } from '../../../Redux/Slices/ProductSlices';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const Services = () => {
           ></Service>)
         }
       </Grid>
-      <Link style={{textDecoration:"none"}} href="/allProducts">
+      <Link style={{textDecoration:"none"}} to="/allProducts">
         <Button style={{marginTop: "30px"}} variant="contained">Explore Products</Button>
       </Link>
       </Container>

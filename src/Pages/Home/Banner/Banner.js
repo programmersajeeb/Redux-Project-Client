@@ -1,5 +1,6 @@
-import { Box, Button, Grid, Link, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   return (
@@ -10,7 +11,7 @@ const Banner = () => {
           <Box style={{marginTop:"27vh", paddingRight:"5%"}} sx={{ textAlign: 'right' }}>
           <Typography style={{color:'#f3e0ca', textTransform:"uppercase", fontSize:"30px"}} variant="body1" gutterBottom> FALL IN LOVE </Typography>
           <Typography style={{color:'#9f7a49', textTransform:"uppercase"}} variant="h3" gutterBottom component="div"> Redefining the meaning of time </Typography>
-          <Link style={{textDecoration:"none"}} href="/allProducts">
+          <Link style={{textDecoration:"none"}} to="/allProducts">
           <Button style={{color:'#9f7a49', textTransform:"uppercase", fontSize:"20px"}} variant="outlined">EXPLORE</Button>
           </Link>
           </Box>
