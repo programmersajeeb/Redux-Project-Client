@@ -1,5 +1,6 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, Link, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AvailableClock = (props) => {
   const {_id, name, img, price} = props.availableClock;
@@ -18,7 +19,7 @@ const AvailableClock = (props) => {
         <Typography variant="h6" component="div" color="#808080">Price: ${price} </Typography>
       </CardContent>
       <CardActions style={{display: "block",alignItem:"center"}}>
-        <Link style={{textDecoration:"none", color:"rgb(243, 224, 202)"}} href={`/productDetails/${_id}`}>
+        <Link style={{textDecoration:"none", color:"rgb(243, 224, 202)"}} to={`/productDetails/${_id}`}>
         <Button size="large">Details</Button>
         </Link>
       </CardActions>
