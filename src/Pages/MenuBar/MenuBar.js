@@ -11,14 +11,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 import './MenuBar.css';
-import React, { useState } from 'react';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
-import initializeAuthentication from '../../Firebase/firebase.init';
+import React from 'react';
+import useAuth from '../../Hooks/useAuth';
 
 
-
-initializeAuthentication();
-const provider = new GoogleAuthProvider();
 const MenuBar = () => {
   const theme = useTheme()
   const useStyle = makeStyles({
@@ -77,29 +73,9 @@ const MenuBar = () => {
     </Box>
   );
 
+  const {users, logOut} = useAuth();
+  const {signInUsingGoole} = useAuth();
   
-  const [user, setUser] = useState({})
-  const handleGooleSignIn = () =>{
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-    .then(result =>{
-      const {displayName, email, photoURL} = result.user;
-      const signInUser = {
-        name: displayName,
-        email: email,
-        photo: photoURL
-      };
-      setUser(signInUser);
-    })
-  }
-
-  const auth = getAuth();
-  const handleSignOut = () => {
-      signOut(auth)
-      .then( () => {
-        setUser({});
-      })
-  }
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -121,14 +97,20 @@ const MenuBar = () => {
           </Typography>
           <Box className={navItemContainer}>
                <NavLink className={navItem} to="/"> <Button color="inherit">Home</Button> </NavLink>
-               {!user.name ?
-                  <Button onClick={handleGooleSignIn}>Sign In</Button> :
-                  <Box style={{display:"inline-block"}}>
+               
+                   
+
+               {users?.email ?
+                 <Box style={{display:"inline-block"}}>
                     <NavLink className={navItem} to="/manageProducts"> <Button color="inherit">Manage Products</Button> </NavLink>
                <NavLink className={navItem} to="/addProduct"> <Button color="inherit">Add Product</Button> </NavLink>
-                    <Button onClick={handleSignOut}>Sign Out</Button>
-                  </Box>
-                }
+                   <Button onClick={logOut} color="inherit">Logout</Button>
+                 </Box>:
+                 <Button onClick={signInUsingGoole} color="inherit">Login</Button> 
+               }
+               
+               <Button color="inherit">Signed in as: <a href="#login">{users?.displayName}</a></Button>
+                   
              </Box>
         </Toolbar>
       </AppBar>

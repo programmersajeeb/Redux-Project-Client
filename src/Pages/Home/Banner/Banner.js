@@ -3,7 +3,7 @@ import React from 'react';
 
 const Banner = () => {
   return (
-    <Box>
+    <Box sx={{marginTop:"9vh"}}>
       <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={0}>
         <Grid style={{width:"100%", height:"80vh", backgroundImage:"url(https://cdn.shopify.com/s/files/1/2496/9194/files/slider1-bg.jpg?v=1621578898)", backgroundRepeat:"no-repeat", backgroundSize:"cover"}} item xs={12} md={12}>

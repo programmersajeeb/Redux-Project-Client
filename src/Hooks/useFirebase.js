@@ -1,49 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 import initializeAuthentication from '../Firebase/firebase.init';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut,  onAuthStateChanged} from "firebase/auth";
 
 initializeAuthentication();
-const useFirebase = () => {
-    const [user, setUser] = useState({});
+const useFirebase = ()=>{
+    const [users, setUsers] = useState({});
     const [isLoading, setisLoading] = useState(true)
     const auth = getAuth();
 
-    const signInUsingGoogle = () => {
+    const signInUsingGoole =()=>{
         setisLoading(true);
         const googleProvider = new GoogleAuthProvider();
-        return signInWithPopup(auth, googleProvider)
+        signInWithPopup(auth, googleProvider)
+        .then(result =>{
+            setUsers(result.user);
+        })
     }
-    // observe user state, nothing to do this function just declare it for better performance
-    useEffect(() => {
-        // setisLoading(true);
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUser(user)
-            } else {
-                setUser({})
-            } setisLoading(false)
 
-            return () => unsubscribe;
+    //Observe user state change
+    useEffect(()=>{
+       const unsubscribed = onAuthStateChanged(auth, user=>{
+            if(user){
+                setUsers(user);
+            }else{
+                setUsers({});
+            }setisLoading(false)
+            return ()=> unsubscribed;
         });
+        
     }, [])
-
-    const logOut = () => {
+    const logOut=()=>{
         setisLoading(true);
-        signOut(auth).then(() => {
-            setUser({})
-        }).catch((error) => {
-            // 
-        }).finally(
-            () => setisLoading(false)
-        );
+        signOut(auth)
+        .then(()=>{});
     }
-
-    return {
-        user,
+    return{
+        users,
+        signInUsingGoole,
         logOut,
-        isLoading,
-        signInUsingGoogle,
-    };
-};
+        isLoading
+    }
+}
 
 export default useFirebase;

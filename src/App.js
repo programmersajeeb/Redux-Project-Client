@@ -6,11 +6,13 @@ import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import ExploreProducts from './Pages/ExploreProducts/ExploreProducts/ExploreProducts';
 import ManageProducts from './Pages/ManageProducts/ManageProducts';
 import AddProduct from './Pages/AddProduct/AddProduct';
+import AuthProvider from './Contexts/AuthProvider';
 
 
 function App() {
   return (
-      <BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />}/>
                     <Route path="/manageProducts" element={<ManageProducts />}/>
@@ -19,6 +21,7 @@ function App() {
                     <Route path="/productDetails/:ProductId" element={<ProductDetails />}/>
                 </Routes>
     </BrowserRouter>
+      </AuthProvider>
   );
 }
 
